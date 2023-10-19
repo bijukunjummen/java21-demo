@@ -8,27 +8,41 @@ class Feature02PatternMatchingForRecords {
 
     @Test
     void testPatternMatchingForRecords() {
-        Address address = new Address("John Smith", "1 Bowerman Dr", "Beaverton");
+        Address address = new Address("1 Bowerman Dr", "Beaverton", "OR");
 
-        if (address instanceof Address(var name, var st, var city)) {
-            assertThat(name).isEqualTo("John Smith");
+        if (address instanceof Address(var st, var city, var state)) {
             assertThat(st).isEqualTo("1 Bowerman Dr");
             assertThat(city).isEqualTo("Beaverton");
+            assertThat(state).isEqualTo("OR");
         }
     }
 
     @Test
     void testRecordPatternsSwitch() {
-        Address address = new Address("John Smith", "1 Bowerman Dr", "Beaverton");
+        Address address = new Address("1 Bowerman Dr", "Beaverton", "OR");
         switch (address) {
-            case Address(String n, String s, String c) -> {
-                assertThat(n).isEqualTo("John Smith");
-                assertThat(s).isEqualTo("1 Bowerman Dr");
-                assertThat(c).isEqualTo("Beaverton");
+            case Address(String street, String city, String state) -> {
+                assertThat(street).isEqualTo("1 Bowerman Dr");
+                assertThat(city).isEqualTo("Beaverton");
+                assertThat(state).isEqualTo("OR");
             }
         }
     }
 
-    record Address(String name, String street, String city) {
+    @Test
+    void testUnNamedPatterns() {
+        Address address = new Address("1 Bowerman Dr", "Beaverton", "OR");
+        Person person = new Person("John Smith", "", address);
+
+        if (person instanceof Person(_, _, Address(var st, var city, _))) {
+            assertThat(st).isEqualTo("1 Bowerman Dr");
+            assertThat(city).isEqualTo("Beaverton");
+        }
+    }
+
+    record Address(String street, String city, String state) {
+    }
+
+    record Person(String name, String phone, Address address) {
     }
 }
