@@ -9,7 +9,7 @@ import static java.lang.StringTemplate.RAW;
 import static java.util.FormatProcessor.FMT;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class Feature01TextBlocks {
+public class Feature01TextBlocksTests {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
