@@ -9,9 +9,33 @@ import static java.lang.StringTemplate.RAW;
 import static java.util.FormatProcessor.FMT;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class Feature01TextBlocksTests {
+// JEP 430
+public class Feature01StringTemplateTests {
 
     private ObjectMapper objectMapper = new ObjectMapper();
+
+    @Test
+    void testStringTemplateMotivation() {
+        // String s = x + " plus " + y + " equals " + (x + y);
+        int x = 10;
+        int y = 20;
+        String s = new StringBuilder()
+                .append(x)
+                .append(" plus ")
+                .append(y)
+                .append(" equals ")
+                .append(x + y)
+                .toString();
+        assertThat(s).isEqualTo("10 plus 20 equals 30");
+    }
+
+    @Test
+    void testStringTemplate() {
+        int x = 10;
+        int y = 20;
+        String s = STR. "\{ x } plus \{ y } equals \{ x + y }" ;
+        assertThat(s).isEqualTo("10 plus 20 equals 30");
+    }
 
     @Test
     void testBlocks() throws Exception {

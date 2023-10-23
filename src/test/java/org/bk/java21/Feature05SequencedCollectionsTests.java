@@ -6,7 +6,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class Feature03SequencedCollectionsTests {
+class Feature05SequencedCollectionsTests {
 
     @Test
     void testListExtractElements() {
