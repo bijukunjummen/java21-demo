@@ -38,6 +38,32 @@ public class Feature01StringTemplateTests {
     }
 
     @Test
+    void dangerousInterpolation() {
+        String query = "SELECT * FROM Person p WHERE p.last_name = '%s'";
+        System.out.println(query.formatted("Smith' OR p.last_name <> 'Smith"));
+    }
+
+    @Test
+    void basicInterpolation() {
+        String first = "John";
+        String last = "Smith";
+        String info = STR. "My first name is \{ first } and my last name is \{ last }" ;
+        assertThat(info).isEqualTo("My first name is John and my last name is Smith");
+    }
+
+    @Test
+    void basicStringTemplate() {
+        String first = "John";
+        String last = "Smith";
+        StringTemplate st = RAW. "My first name is \{ first } and my last name is \{ last }" ;
+        System.out.println(STR. "Fragments = \{ st.fragments() }" );
+        System.out.println(STR. "Values = \{ st.values() }" );
+        String result = String.join("\\{}", st.fragments());
+        System.out.println(result);
+        assertThat(st.interpolate()).isEqualTo("My first name is John and my last name is Smith");
+    }
+
+    @Test
     void testBlocks() throws Exception {
         String json = """
                    {
@@ -57,34 +83,6 @@ public class Feature01StringTemplateTests {
                         new Person("John Smith", null,
                                 new Address("1 Bowerman Dr", "Beaverton", "OR")));
     }
-
-
-    @Test
-    void dangerousInterpolation() {
-        String query = "SELECT * FROM Person p WHERE p.last_name = '%s'";
-        System.out.println(query.formatted("Smith' OR p.last_name <> 'Smith"));
-    }
-
-    @Test
-    void basicInterpolation() {
-        String first = "John";
-        String last = "Smith";
-        String info = STR. "My first name is \{ first } and my last name is \{ last }" ;
-        assertThat(info).isEqualTo("My first name is John and my last name is Smith");
-    }
-
-    @Test
-    void basicStringTemplate() {
-        String first = "John";
-        String last = "Smith";
-        StringTemplate st = RAW. "My first name is \{ first } and my last name is \{ last }" ;
-        System.out.println(st.fragments());
-        System.out.println(st.values());
-        String result = String.join("\\{}", st.fragments());
-        System.out.println(result);
-        assertThat(st.interpolate()).isEqualTo("My first name is John and my last name is Smith");
-    }
-
     @Test
     void testBlockInterpolation() throws Exception {
         String street = "1 Bowerman Dr";
@@ -143,7 +141,7 @@ public class Feature01StringTemplateTests {
             StringBuilder sb = new StringBuilder();
             Iterator<String> fragIter = st.fragments().iterator();
             for (Object value : st.values()) {
-                sb.append(fragIter.next());
+                sb.append(fragIter.next().toUpperCase());
                 sb.append(value);
             }
             sb.append(fragIter.next());
@@ -151,7 +149,7 @@ public class Feature01StringTemplateTests {
         });
         int x = 10, y = 20;
         String s = INTER. "\{ x } plus \{ y } equals \{ x + y }" ;
-        assertThat(s).isEqualTo("10 plus 20 equals 30");
+        assertThat(s).isEqualTo("10 PLUS 20 EQUALS 30");
     }
 
     record Rectangle(String name, double width, double height) {

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+//JEP
 class Feature03PatternMatchingForSwitch {
 
     @Test
@@ -124,7 +125,7 @@ class Feature03PatternMatchingForSwitch {
     void testRecordPatternsSwitch() {
         Address address = new Address("1 Bowerman Dr", "Beaverton", "OR");
         switch (address) {
-            case Address(String street, String city, String state) -> {
+            case Address(var street, var city, var state) -> {
                 assertThat(street).isEqualTo("1 Bowerman Dr");
                 assertThat(city).isEqualTo("Beaverton");
                 assertThat(state).isEqualTo("OR");
