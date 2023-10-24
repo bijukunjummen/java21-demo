@@ -9,6 +9,7 @@ import java.util.SequencedSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+// JEP 431: Sequenced Collections
 class Feature05SequencedCollectionsTests {
 
     @Test

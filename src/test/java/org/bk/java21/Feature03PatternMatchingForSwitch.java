@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-//JEP
+//JEP 441: Pattern Matching for switch
 class Feature03PatternMatchingForSwitch {
 
     @Test

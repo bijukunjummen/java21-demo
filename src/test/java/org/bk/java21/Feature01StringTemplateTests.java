@@ -9,8 +9,8 @@ import static java.lang.StringTemplate.RAW;
 import static java.util.FormatProcessor.FMT;
 import static org.assertj.core.api.Assertions.assertThat;
 
-// JEP 430
-public class Feature01StringTemplateTests {
+// JEP - 430: String Templates (Preview)
+class Feature01StringTemplateTests {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -35,12 +35,6 @@ public class Feature01StringTemplateTests {
         int y = 20;
         String s = STR. "\{ x } plus \{ y } equals \{ x + y }" ;
         assertThat(s).isEqualTo("10 plus 20 equals 30");
-    }
-
-    @Test
-    void dangerousInterpolation() {
-        String query = "SELECT * FROM Person p WHERE p.last_name = '%s'";
-        System.out.println(query.formatted("Smith' OR p.last_name <> 'Smith"));
     }
 
     @Test
@@ -83,6 +77,7 @@ public class Feature01StringTemplateTests {
                         new Person("John Smith", null,
                                 new Address("1 Bowerman Dr", "Beaverton", "OR")));
     }
+
     @Test
     void testBlockInterpolation() throws Exception {
         String street = "1 Bowerman Dr";
