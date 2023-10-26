@@ -27,10 +27,10 @@ class Feature03PatternMatchingForSwitch {
     void testPatternSwitch() {
         Object obj = 10;
         String formatted = switch (obj) {
-            case Integer i -> String.format("int %d", i);
-            case Long l -> String.format("long %d", l);
-            case Double d -> String.format("double %f", d);
-            case String s -> String.format("String %s", s);
+            case Integer i -> STR. "int \{ i }" ;
+            case Long l -> STR. "long \{ l }" ;
+            case Double d -> STR. "double \{ d }" ;
+            case String s -> STR. "String \{ s }" ;
             default -> obj.toString();
         };
 
@@ -42,10 +42,10 @@ class Feature03PatternMatchingForSwitch {
         Object obj = null;
         String formatted = switch (obj) {
             case null -> "Oops!";
-            case Integer i -> String.format("int %d", i);
-            case Long l -> String.format("long %d", l);
-            case Double d -> String.format("double %f", d);
-            case String s -> String.format("String %s", s);
+            case Integer i -> STR. "int \{ i }" ;
+            case Long l -> STR. "long \{ l }" ;
+            case Double d -> STR. "double \{ d }" ;
+            case String s -> STR. "String \{ s }" ;
             default -> obj.toString();
         };
 
@@ -53,7 +53,7 @@ class Feature03PatternMatchingForSwitch {
     }
 
     @Test
-    void testCaseRefinementWithGuardedCaseLabel() {
+    void testCaseRefinementWithGuardedCaseLabelMotivation() {
         Object response = "NO";
         switch (response) {
             case null -> {

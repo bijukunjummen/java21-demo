@@ -50,8 +50,8 @@ class Feature01StringTemplateTests {
         String first = "John";
         String last = "Smith";
         StringTemplate st = RAW. "My first name is \{ first } and my last name is \{ last }" ;
-        System.out.println(STR. "Fragments = \{ st.fragments() }" );
-        System.out.println(STR. "Values = \{ st.values() }" );
+        System.out.println("Fragments = " + st.fragments());
+        System.out.println("Values = " + st.values());
         String result = String.join("\\{}", st.fragments());
         System.out.println(result);
         assertThat(st.interpolate()).isEqualTo("My first name is John and my last name is Smith");
@@ -132,7 +132,7 @@ class Feature01StringTemplateTests {
 
     @Test
     void customProcessor() {
-        var INTER = StringTemplate.Processor.of((StringTemplate st) -> {
+        var UPPER = StringTemplate.Processor.of((StringTemplate st) -> {
             StringBuilder sb = new StringBuilder();
             Iterator<String> fragIter = st.fragments().iterator();
             for (Object value : st.values()) {
@@ -143,7 +143,7 @@ class Feature01StringTemplateTests {
             return sb.toString();
         });
         int x = 10, y = 20;
-        String s = INTER. "\{ x } plus \{ y } equals \{ x + y }" ;
+        String s = UPPER. "\{ x } plus \{ y } equals \{ x + y }" ;
         assertThat(s).isEqualTo("10 PLUS 20 EQUALS 30");
     }
 

@@ -33,12 +33,12 @@ class Feature02RecordPatternsTests {
 
     @Test
     void testMoreExtensiveRecordPattern() {
-        Address address = new Address("1 Bowerman Dr", "Beaverton", "OR");
+        Address address = new Address("1 Bowerman Dr", null, "OR");
         Person person = new Person("John Smith", "", address);
 
-        if (person instanceof Person(var name, var phone, Address(var st, var city, var state))) {
+        if (person instanceof Person(_, _, Address(var st, var city, var state))) {
             assertThat(st).isEqualTo("1 Bowerman Dr");
-            assertThat(city).isEqualTo("Beaverton");
+            assertThat(city).isNull();
             assertThat(state).isEqualTo("OR");
         }
     }
